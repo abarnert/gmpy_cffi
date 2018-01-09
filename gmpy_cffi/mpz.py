@@ -471,3 +471,73 @@ class mpz(object):
             _del_mpz(base)
 
         return mpz._from_c_mpz(res)
+
+    def bit_length(self):
+        return gmp.mpz_sizeinbase(self._mpz, 2)
+    
+    def bit_popcount(self):
+        return gmp.mpz_popcount(self._mpz)
+
+    def bit_hamdist(self, other):
+        if isinstance(other, (int, long)):
+            oth = _new_mpz()
+            _pyint_to_mpz(other, oth)
+            res = gmp.mpz_hamdist(self._mpz, oth)
+            _del_mpz(oth)
+        else:
+            res = gmp.mpz_hamdist(self._mpz, other._mpz)
+        return res
+
+    def bit_scan0(self, n=0):
+        return gmp.mpz_scan0(self._mpz, n)
+
+    def bit_scan1(self, n=0):
+        return gmp.mpz_scan1(self._mpz, n)
+
+    def bit_set(self, n):
+        res = _new_mpz()
+        gmp.mpz_set(res, self._mpz)
+        gmp.mpz_setbit(res, n)
+        return mpz._from_c_mpz(res)
+
+    def bit_clear(self, n):
+        res = _new_mpz()
+        gmp.mpz_set(res, self._mpz)
+        gmp.mpz_clrbit(res, n)
+        return mpz._from_c_mpz(res)
+
+    def bit_flip(self, n):
+        res = _new_mpz()
+        gmp.mpz_set(res, self._mpz)
+        gmp.mpz_combit(res, n)
+        return mpz._from_c_mpz(res)
+
+    def bit_test(self, n):
+        return gmp.mpz_tstbit(self._mpz, n)
+
+def bit_length(n):
+    return mpz(n).bit_length()
+
+def popcount(n):
+    return mpz(n).bit_popcount()
+
+def hamdist(n, m):
+    return mpz(n).bit_hamdist(m)
+
+def bit_scan0(n, m=0):
+    return mpz(n).bit_scan0(m)
+
+def bit_scan1(n, m=0):
+    return mpz(n).bit_scan1(m)
+
+def bit_set(n, m):
+    return mpz(n).bit_set(m)
+
+def bit_clear(n, m):
+    return mpz(n).bit_clear(m)
+
+def bit_flip(n, m):
+    return mpz(n).bit_flip(m)
+
+def bit_test(n, m):
+    return mpz(n).bit_test(m)

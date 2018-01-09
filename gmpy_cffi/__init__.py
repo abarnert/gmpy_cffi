@@ -1,4 +1,6 @@
-from .mpz import mpz
+from .mpz import (mpz,
+    bit_length, popcount, hamdist, bit_scan0, bit_scan1,
+    bit_set, bit_clear, bit_flip, bit_test)
 from .mpq import mpq
 from .mpfr import mpfr, isinf, isnan
 from .mpc import mpc

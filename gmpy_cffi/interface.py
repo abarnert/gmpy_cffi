@@ -65,10 +65,19 @@ ffi.cdef("""
     int mpz_cmp_ui (mpz_t op1, unsigned long int op2);
     int mpz_sgn (mpz_t op);
 
+    // Logical and Bit Manipulation Functions
     void mpz_and (mpz_t rop, mpz_t op1, mpz_t op2);
     void mpz_ior (mpz_t rop, mpz_t op1, mpz_t op2);
     void mpz_xor (mpz_t rop, mpz_t op1, mpz_t op2);
     void mpz_com (mpz_t rop, mpz_t op);
+    mp_bitcnt_t mpz_popcount(mpz_t op);
+    mp_bitcnt_t mpz_hamdist(mpz_t op1, mpz_t op2);
+    mp_bitcnt_t mpz_scan0(mpz_t op, mp_bitcnt_t starting_bit);
+    mp_bitcnt_t mpz_scan1(mpz_t op, mp_bitcnt_t starting_bit);
+    void mpz_setbit(mpz_t rop, mp_bitcnt_t bit_index);
+    void mpz_clrbit(mpz_t rop, mp_bitcnt_t bit_index);
+    void mpz_combit(mpz_t rop, mp_bitcnt_t bit_index);
+    int mpz_tstbit(mpz_t rop, mp_bitcnt_t bit_index);
 
     int mpz_fits_ulong_p (mpz_t op);
     int mpz_fits_slong_p (mpz_t op);
